@@ -4,7 +4,7 @@ using namespace std;
 //编译命令格式:格式化字符串中第一个%s代表源文件名称，第二个%s代表输出文件名称
 void initCommands() {
 	compile_commands[CPP] = 
-		"g++ %s -Wall -static -std=c++11 -DONLINE_JUDGE -fno-asm -O2 -o %s";
+		"g++ %s -static -std=c++11 -DONLINE_JUDGE -fno-asm -O2 -o %s";
 
 	//JAVA就不一样,文件名必须是Main.java,但必须有两个%s要不然就被人按在地上艹
 	compile_commands[JAVA] =
