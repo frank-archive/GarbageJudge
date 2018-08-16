@@ -1,0 +1,20 @@
+{
+	"name":"CPP",
+	"suffix":".cpp",
+	"compile_command":"g++ -static -std=c++11 -fno-asm -lm -fmax-errors=10 %s -o %s",
+	"compile_error_mark":"\\w",
+	"compile_timeout":10,
+	"run_command":"./%s",
+	"time_bonus_multiplier":1,
+	"is_use_vm":false
+}
+{
+	"name":"JAVA",
+	"suffix":".java",
+	"compile_command":"javac -J-Xms32m -J-Xmx256m -encoding UTF-8 %s # %s",
+	"compile_error_mark":"\\w",
+	"compile_timeout":30,
+	"run_command":"java %s",
+	"time_bonus_multiplier":2,
+	"is_use_vm":true
+}

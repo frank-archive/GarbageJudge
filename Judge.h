@@ -2,11 +2,11 @@
 #include"Task.h"
 #include"EnumDef.h"
 
-class Judge {
+struct Judge {
 	unsigned long time_usage;
 	unsigned long memory_usage;
-	JudgeStatus status;
 	int score;
-public:
+	JudgeStatus status;
+	std::string compiler_info;
 	JudgeStatus judge(Task task);
 };

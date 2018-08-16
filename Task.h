@@ -8,4 +8,4 @@ struct Task {
 	std::string code_based;//base64
 };
 
-Task parse(std::string json);
+Task parseTask(std::string json);

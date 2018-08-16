@@ -12,10 +12,6 @@ Problem *readProblemConfig(std::string configfile_path) {
 	else if (parsed["type"] == "special")ret->type = special;
 	else if (parsed["type"] == "interactive")ret->type = interactive;
 
-	if ((ret->lang = parsed["lang"]).size() == 0) {
-		printf("[error]:in readProblemConfig(string):language not specified\n");
-		return nullptr;
-	}
 	if ((ret->memory_limit = atoi(parsed["memory_limit"].c_str())) == 0) {
 		printf("[error]:in readProblemConfig(string):mem limit not specified\n");
 		return nullptr;
