@@ -1,6 +1,5 @@
 #pragma once
-#include"Language.h"
-#include"EnumDef.h"
+#include"toolkit.h"
 
 struct Problem {
 	bool isSet;

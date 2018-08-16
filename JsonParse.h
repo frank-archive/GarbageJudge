@@ -13,6 +13,6 @@ class JSON {
 	std::unordered_map<std::string, JSONObj>pool;
 public:
 	friend JSON JsonParse(std::string json);
-	JSONObj operator [](std::string key);
+	JSONObj &operator [](std::string key);
 };
 JSON JsonParse(std::string json);

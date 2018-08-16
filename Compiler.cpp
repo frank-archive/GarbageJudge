@@ -32,10 +32,30 @@ std::string decode(std::string encoded_string) {
 
 Compiler::Compiler(Task unc) {
 	std::string code_decoded = decode(unc.code_based);
-	FILE *pPlayer = fopen(("player." + lang_pool[unc.lang].suffix).c_str(), "w");
+	std::string source_filename = ("Main." + lang_pool[unc.lang].suffix).c_str();
+	FILE *pPlayer = fopen(source_filename.c_str(), "w");
 	fprintf(pPlayer, "%s", code_decoded.c_str());
 
-
+	int proc = fork();
+	if (proc == 0) {
+		freopen("compile_message.txt", "w", stdout);
+		freopen("compile_message.txt", "w", stderr);
+		setTimeLimit(lang_pool[unc.lang].compile_timeout);
+		char cmd[1024]; memset(cmd, 0, sizeof cmd);
+		sprintf(cmd, lang_pool[unc.lang].compile_command.c_str(),
+			source_filename, "Main");
+		int ret = system(cmd);
+		exit(0);
+	}
+	Usage fin;
+	ProcStatus ret = watchSubProcess(proc, 0, &fin, lang_pool[unc.lang].compile_timeout);
+	FILE *compile_message = fopen("compile_message.txt", "r"); char buffer[1024];
+	while (fgets(buffer, 1024, compile_message))status.message += buffer;
+	if (ret != AC||
+		std::regex_search(status.message,std::regex(lang_pool[unc.lang].compile_error_mark))) {
+		status.success = false;
+	}
+	else status.success = true;
 }
 
 Compiler::CompileStatus Compiler::getStatus() {

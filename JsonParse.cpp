@@ -40,3 +40,7 @@ JSON JsonParse(string json) {
 	else return JSON();
 	return ret;
 }
+
+JSONObj &JSON::operator[](std::string key) {
+	return pool[key];
+}
