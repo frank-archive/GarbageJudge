@@ -1,47 +1,43 @@
-#include"Compiler.h"
-#include<regex>
-using namespace std;
-bool isCompileError(langtype lang, string message) {
-	if (regex_search(message, regex(match_compile_error[lang])))
-		return true;
-	return false;
+#include "Compiler.h"
+#include"toolkit.h"
+
+#include"Language.h"
+
+extern LanguageManager lang_pool;
+
+static const std::string base64_chars =
+"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+"abcdefghijklmnopqrstuvwxyz"
+"0123456789+/";
+static bool is_base64(unsigned char c) {
+	return (isalnum(c) || (c == '+') || (c == '/'));
+}
+std::string decode(std::string encoded_string) {
+	int in_len = encoded_string.size();
+	int i = 0, in_ = 0;unsigned char char_array_4[4], char_array_3[3];std::string ret;
+	while (in_len-- && (encoded_string[in_] != '=') && is_base64(encoded_string[in_])) {
+	char_array_4[i++] = encoded_string[in_++];
+	if (i == 4) {for (i = 0; i < 4; i++)char_array_4[i] = base64_chars.find(char_array_4[i]);
+	char_array_3[0] = (char_array_4[0] << 2) + ((char_array_4[1] & 0x30) >> 4);
+	char_array_3[1] = ((char_array_4[1] & 0xf) << 4) + ((char_array_4[2] & 0x3c) >> 2);
+	char_array_3[2] = ((char_array_4[2] & 0x3) << 6) + char_array_4[3];
+	for (i = 0; i < 3; i++)ret += char_array_3[i];i = 0;}}
+	if (i) {for (int j = i; j <4; j++)char_array_4[j] = 0;
+	for (int j = 0; j <4; j++)char_array_4[j] = base64_chars.find(char_array_4[j]);
+	char_array_3[0] = (char_array_4[0] << 2) + ((char_array_4[1] & 0x30) >> 4);
+	char_array_3[1] = ((char_array_4[1] & 0xf) << 4) + ((char_array_4[2] & 0x3c) >> 2);
+	char_array_3[2] = ((char_array_4[2] & 0x3) << 6) + char_array_4[3];
+	for (int j = 0; (j < i - 1); j++) ret += char_array_3[j];}return ret;
 }
 
-retcode compile(langtype lang, std::string filename) {
-	int pid = fork();
+Compiler::Compiler(Task unc) {
+	std::string code_decoded = decode(unc.code_based);
+	FILE *pPlayer = fopen(("player." + lang_pool[unc.lang].suffix).c_str(), "w");
+	fprintf(pPlayer, "%s", code_decoded.c_str());
 
-	if (pid == 0) {
-		freopen("compile_message", "w", stderr);
-		freopen("compile_message", "w", stdout);
 
-		long long time_limit = (lang == JAVA ? 30 : 10);
-		setTimeLimit(time_limit);
-		setCreateFileSizeLimit(40 * 1024);
+}
 
-		if (lang == NOT_SUPPORTED || compile_commands[lang].size() == 0) {
-			printf("language not supported");
-			exit(0);
-		}
-		string output_name = filename.substr(filename.find('.') + 1);
-		vsystem(compile_commands[lang].c_str(), filename.c_str(), output_name.c_str());
-		exit(0);
-	}
-	else {
-		int status = 0;
-		waitpid(pid, &status, 0);
-
-		FILE *compile_message = fopen("compile_message", "r");
-		char buffer[2048]; std::string cm;
-		while (fgets(buffer, 2048, compile_message))cm += buffer;
-		fclose(compile_message);
-		if (isCompileError(lang, cm)) {
-			compile_error = cm;
-			return CE;
-		}
-		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGKILL) {
-			compile_error = "compilation time exceeded\n";
-			return CE;
-		}
-		return ACCEPTED;
-	}
+Compiler::CompileStatus Compiler::getStatus() {
+	return status;
 }

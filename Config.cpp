@@ -1,8 +1,9 @@
-#include"LanguageConfig.h"
+#include"Config.h"
 #include"SyscallLayer.h"
 using namespace std;
+
 //编译命令格式:格式化字符串中第一个%s代表源文件名称，第二个%s代表输出文件名称
-void initCommands() {
+void LanguageConfig::initCommands() {
 	compile_commands[CPP] = 
 		"g++ %s -static -std=c++11 -DONLINE_JUDGE -fno-asm -O2 -o %s";
 
@@ -14,9 +15,9 @@ void initCommands() {
 		"fpc %s -Cs32000000 -Sh -O2 -Co -Ct -Ci -o%s";
 }
 
-void initRegexCE() {
-	match_compile_error[CPP] = "\w";
-	match_compile_error[JAVA] = "\w";
+void LanguageConfig::initRegexCE() {
+	match_compile_error[CPP] = "\\w";
+	match_compile_error[JAVA] = "\\w";
 	match_compile_error[PASCAL] = "Error:";
 }
 

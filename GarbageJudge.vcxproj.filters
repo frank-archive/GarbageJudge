@@ -2,42 +2,52 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="SyscallLayer.cpp">
+    <ClCompile Include="Language.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="LanguageConfig.cpp">
+    <ClCompile Include="Judge.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Compiler.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Judger.cpp">
+    <ClCompile Include="toolkit.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Problem.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Task.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Headers">
-      <UniqueIdentifier>{3a8035d3-426e-4e8d-a845-d0d32358af61}</UniqueIdentifier>
+    <Filter Include="Header">
+      <UniqueIdentifier>{e0c3d07b-7bfa-4616-b678-cc2b63807bc9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source">
-      <UniqueIdentifier>{aa226bf5-7e48-4cd6-8393-fd7f63772255}</UniqueIdentifier>
+      <UniqueIdentifier>{fda8cb19-4fda-40c9-8a3e-3efbf6a13d24}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SyscallLayer.h">
-      <Filter>Headers</Filter>
+    <ClInclude Include="Language.h">
+      <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="EnumDef.h">
-      <Filter>Headers</Filter>
+    <ClInclude Include="Judge.h">
+      <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="LanguageConfig.h">
-      <Filter>Headers</Filter>
+    <ClInclude Include="Task.h">
+      <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="Compiler.h">
-      <Filter>Headers</Filter>
+      <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="Judger.h">
-      <Filter>Headers</Filter>
+    <ClInclude Include="EnumDef.h" />
+    <ClInclude Include="toolkit.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Problem.h">
+      <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

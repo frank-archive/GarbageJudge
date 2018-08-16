@@ -1,11 +1,12 @@
 #pragma once
 #include<string>
-
-#include"LanguageConfig.h"
-#include"SyscallLayer.h"
-#include"EnumDef.h"
-
-std::string compile_error;
-
-bool isCompileError(langtype lang, std::string message);
-retcode compile(langtype lang, std::string filename);
+#include"Task.h"
+class Compiler {
+	struct CompileStatus {
+		bool success;
+		std::string message;
+	}status;
+public:
+	Compiler(Task unc);
+	CompileStatus getStatus();
+};
