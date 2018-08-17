@@ -3,6 +3,7 @@
 class JSONObj {
 	std::string val;
 public:
+	JSONObj();
 	JSONObj(std::string v);
 	std::string asString();
 	bool asBool();

@@ -1,5 +1,6 @@
 #pragma once
 #include"toolkit.h"
+#include<string>
 
 struct Problem {
 	bool isSet;
@@ -9,4 +10,4 @@ struct Problem {
 	int test_cases;
 	int score_per_cases;
 };
-Problem *readProblemConfig(std::string dir = (string)"./config");
+Problem *readProblemConfig(std::string dir = (std::string)"./config");

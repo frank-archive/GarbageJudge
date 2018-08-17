@@ -13,10 +13,10 @@ void enterDir(std::string dir) {
 
 std::string trim(std::string c) {
 	int start = 0, end;
-	while (isspace(c[start]))
+	while (!isprint(c[start]))
 		start++;
 	end = start;
-	while (!isspace(c[end]))
+	while (isprint(c[end]))
 		end++;
 	return c.substr(start, end - start);
 }

@@ -17,7 +17,7 @@ bool LanguageManager::isSupported(std::string name) {
 LanguageManager parseLanguage(std::string json_ex) {
 	json_ex += "     ";
 	LanguageManager ret;
-	while (json_ex.find('}')) {
+	while (json_ex.find('}') != -1) {
 		JSON a_language = JsonParse(json_ex);
 		ret.support(
 			a_language["name"].asString(),
@@ -31,4 +31,5 @@ LanguageManager parseLanguage(std::string json_ex) {
 		);
 		json_ex = json_ex.substr(json_ex.find('}') + 1);
 	}
+	return ret;
 }

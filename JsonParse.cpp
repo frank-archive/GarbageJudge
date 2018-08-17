@@ -1,11 +1,13 @@
 #include "JsonParse.h"
 using namespace std;
+
+JSONObj::JSONObj() { }
 JSONObj::JSONObj(std::string v) {
 	val = v;
 }
 string JSONObj::asString() {
 	if (val.find("\"") == -1)return "";
-	val = val.substr(val.find("\""));
+	val = val.substr(val.find("\"") + 1);
 	val = val.substr(0, val.find("\""));
 	return val;
 }
@@ -22,19 +24,22 @@ int JSONObj::asInteger() {
 JSON JsonParse(string json) {
 	JSON ret;
 	json = json.substr(json.find('{'));
-	int commark;
+	json = json.substr(0, json.find('}')+1);
+	int commark, mark;
 	while ((commark = json.find(',')) != -1) {
-		string obj = json.substr(0, commark);
-		string key = trim(obj.substr(0, obj.find(':')));
-		key = key.substr(1, key.size() - 2);
-		ret.pool[key] = { trim(obj.substr(obj.find(':') + 1)) };
+		string object = json.substr(0, commark);
+		mark = -1; while (object[++mark] != '"'&&mark < object.size());
+		string key = object.substr(mark + 1); key = key.substr(0, key.find('"'));
+		string val = trim(object.substr(object.find(':') + 1));
+		ret[key] = { val };
 		json = json.substr(commark + 1);
 	}
 	if ((commark = json.find('}')) != -1) {
-		string obj = json.substr(0, commark);
-		string key = trim(obj.substr(0, obj.find(':')));
-		key = key.substr(1, key.size() - 2);
-		ret.pool[key] = { trim(obj.substr(obj.find(':') + 1)) };
+		string object = json.substr(0, commark);
+		mark = -1; while (object[++mark] != '"'&&mark < object.size());
+		string key = object.substr(mark + 1); key = key.substr(0, key.find('"'));
+		string val = trim(object.substr(object.find(':') + 1));
+		ret[key] = { val };
 		json = json.substr(commark + 1);
 	}
 	else return JSON();
